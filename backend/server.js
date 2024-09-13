@@ -27,6 +27,7 @@ app.use(require('./middleware/checkToken'));
 
 // API Routes
 app.use('/api/auth', require('./routes/auth'));
+app.use('/api/games', require('./routes/games'));
 const ensureLoggedIn = require('./middleware/ensureLoggedIn');
 // Remember to use ensureLoggedIn middleware when mounting
 // routes and/or within the route modules to protect routes
