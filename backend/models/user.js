@@ -1,12 +1,12 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
 
 const SALT_ROUNDS = 6;
 
 const userSchema = new Schema(
   {
-    name: { type: String, required: true },
+    name: { type: String, required: true, unique: true },
     email: {
       type: String,
       unique: true,
@@ -18,6 +18,7 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    likedGames: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Game' }],
   },
   {
     timestamps: true,
@@ -30,11 +31,11 @@ const userSchema = new Schema(
   }
 );
 
-userSchema.pre('save', async function (next) {
+userSchema.pre("save", async function (next) {
   // 'this' is the user document
-  if (!this.isModified('password')) return next();
+  if (!this.isModified("password")) return next();
   // Replace the password with the computed hash
   this.password = await bcrypt.hash(this.password, SALT_ROUNDS);
 });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model("User", userSchema);
