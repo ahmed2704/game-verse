@@ -5,6 +5,7 @@ const API_KEY = process.env.RAWG_KEY;
 module.exports = {
   // index,
   rawGIdx,
+  rawGShow,
 };
 
 //INDEX GAMES FROM RAWG

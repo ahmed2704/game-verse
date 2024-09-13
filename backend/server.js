@@ -25,10 +25,12 @@ app.use(express.json());
 // user object in the JWT's payload to req.user
 app.use(require('./middleware/checkToken'));
 
-// API Routes
 app.use('/api/auth', require('./routes/auth'));
-app.use('/api/games', require('./routes/games'));
+
 const ensureLoggedIn = require('./middleware/ensureLoggedIn');
+
+// API Routes
+app.use('/api/games', ensureLoggedIn, require('./routes/games'));
 // Remember to use ensureLoggedIn middleware when mounting
 // routes and/or within the route modules to protect routes
 // that require a logged in user either
