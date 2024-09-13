@@ -15,9 +15,8 @@ const gameSchema = new mongoose.Schema({
   platforms: [String],
   description: String,
   image: String,
-  likesCount: { type: Number, default: 0 },
+  likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   reviews: [reviewSchema],
-
 });
 
 module.exports = mongoose.model("Game", gameSchema);
