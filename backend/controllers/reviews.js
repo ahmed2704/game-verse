@@ -74,6 +74,7 @@ async function deleteReview(req, res) {
   try {
     const game = await Game.findById(req.params.gameId); 
     const review = game.reviews.id(req.params.reviewId); 
+    console.log(review);
 
     if (!review) {
       return res.status(404).json({ message: "Review not found" });
@@ -83,7 +84,7 @@ async function deleteReview(req, res) {
       return res.status(403).json({ message: "Unauthorized" });
     }
 
-    review.remove();
+    game.reviews.remove({ _id: req.params.reviewId });
 
     await game.save();
 

@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const gameCtrl = require('../controllers/games');
 const reviewCtrl = require('../controllers/reviews');
-const ensureLoggedIn = require('../middleware/ensureLoggedIn');
 
 // All paths start with '/api/games'
 
