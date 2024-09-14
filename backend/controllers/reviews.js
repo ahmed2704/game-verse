@@ -5,6 +5,8 @@ const baseURL = `https://api.rawg.io/api`;
 
 module.exports = {
   createReview,
+  updateReview,
+  deleteReview,
 };
 
 // CREATE REVIEW
@@ -31,10 +33,8 @@ async function createReview(req, res) {
 
       await game.save();
     }
-    console.log(game);
     req.body.user = req.user._id; 
     req.body.game = game._id;
-    console.log(req.body);
     game.reviews.push(req.body);
 
     await game.save();
@@ -42,5 +42,54 @@ async function createReview(req, res) {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Internal server error" });
+  }
+}
+
+// UPDATE REVIEW
+async function updateReview(req, res) {
+  try {
+    const game = await Game.findById(req.params.gameId);
+    const review = game.reviews.id(req.params.reviewId); 
+
+    if (!review) {
+      return res.status(404).json({ message: "Review not found" });
+    }
+
+    if (review.user.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ message: "Unauthorized" });
+    }
+
+    review.content = req.body.content || review.content;
+    review.rating = req.body.rating || review.rating;
+
+    await game.save(); 
+
+    res.status(200).json(game);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+}
+
+async function deleteReview(req, res) {
+  try {
+    const game = await Game.findById(req.params.gameId); 
+    const review = game.reviews.id(req.params.reviewId); 
+
+    if (!review) {
+      return res.status(404).json({ message: "Review not found" });
+    }
+
+    if (review.user.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ message: "Unauthorized" });
+    }
+
+    review.remove();
+
+    await game.save();
+
+    res.status(200).json({ message: "Review deleted" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
   }
 }

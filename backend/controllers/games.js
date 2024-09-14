@@ -10,10 +10,10 @@ module.exports = {
 
 //INDEX GAMES FROM RAWG
 async function rawGIdx(req, res) {
+  console.log('rawGIdx');
   try {
     const games = await fetch(`${baseURL}/games?key=${API_KEY}`);
     const gamesJson = await games.json();
-    
     res.status(200).json(gamesJson);
   } catch (err) {
     res.status(500).json(err);
@@ -32,8 +32,7 @@ async function rawGShow(req, res) {
   }
 };
 
-
-// //INDEX
+// // INDEX games in my database
 // async function index(req, res) {
 //   try {
 //     const games = await Game.find({})
