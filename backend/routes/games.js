@@ -14,6 +14,9 @@ router.get('/rawGIdx', gameCtrl.rawGIdx);
 // GET /api/games/rawGShow
 router.get('/rawGShow/:id', gameCtrl.rawGShow);
 
+// GET /api/games/liked
+router.get('/liked', gameCtrl.showLikedGames);
+
 // POST /api/games/:id/reviews
 router.post('/:id/reviews', reviewCtrl.createReview);
 

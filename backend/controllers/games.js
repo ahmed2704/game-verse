@@ -6,6 +6,7 @@ module.exports = {
   // index,
   rawGIdx,
   rawGShow,
+  showLikedGames,
 };
 
 //INDEX GAMES FROM RAWG
@@ -25,18 +26,37 @@ async function rawGShow(req, res) {
   try {
     const game = await fetch(`${baseURL}/games/${req.params.id}?key=${API_KEY}`);
     const gameJson = await game.json();
-    
-    res.status(200).json(gameJson);
+    const dbGame = await Game.findOne({ rawgId: req.params.id }).populate('reviews.user');
+    if (dbGame) {
+      return res.status(200).json({
+        rawgData: gameJson,
+        reviews: dbGame.reviews 
+      });
+    } else {
+      return res.status(200).json({ rawgData: gameJson });
+    }
   } catch (err) {
     res.status(500).json(err);
   }
 };
 
-// // INDEX games in my database
+async function showLikedGames(req, res) {
+  try {
+    const user = await User.findById(req.user._id).populate('likes');
+    if (!user || !user.likes.length) {
+      return res.status(404).json({ message: 'No liked games found.' });
+    }
+    res.status(200).json(user.likes);
+  } catch (err) {
+    res.status(500).json({ error: 'Server error', details: err });
+  }
+}
+
+// INDEX games in my database
 // async function index(req, res) {
 //   try {
 //     const games = await Game.find({})
-//     .populate('genre');
+//     .populate('reviews');
 //     res.status(200).json(games);
 //   } catch (err) {
 //     res.status(500).json(err);
