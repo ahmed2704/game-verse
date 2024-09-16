@@ -7,6 +7,7 @@ module.exports = {
   rawGIdx,
   rawGShow,
   showLikedGames,
+  search,
 };
 
 //INDEX GAMES FROM RAWG
@@ -40,6 +41,20 @@ async function rawGShow(req, res) {
   }
 };
 
+//SEARCH games from RAWG
+async function search(req, res) {
+  console.log(req.query.search);
+  console.log(req.body);
+  try {
+    const games = await fetch(`${baseURL}/games?key=${API_KEY}&search=${req.query.search}`);
+    const gamesJson = await games.json();
+    res.status(200).json(gamesJson);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+}
+
+//INDEX GAMES FROM MY DATABASE
 async function showLikedGames(req, res) {
   try {
     const user = await User.findById(req.user._id).populate('likes');

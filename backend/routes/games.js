@@ -3,16 +3,21 @@ const router = express.Router();
 const gameCtrl = require('../controllers/games');
 const reviewCtrl = require('../controllers/reviews');
 
-// All paths start with '/api/games'
+// // Send the API key from the backend
+// router.get('/apikey', (req, res) => {
+//   res.json({ apiKey: process.env.RAWG_KEY });
+// });
 
-// POST /api/games
-// router.get('/', gameCtrl.index);
+// All paths start with '/api/games'
 
 // GET /api/games/rawGIdx
 router.get('/rawGIdx', gameCtrl.rawGIdx);
 
 // GET /api/games/rawGShow
 router.get('/rawGShow/:id', gameCtrl.rawGShow);
+
+// GET /api/games/search
+router.get('/search', gameCtrl.search);
 
 // GET /api/games/liked
 router.get('/liked', gameCtrl.showLikedGames);
