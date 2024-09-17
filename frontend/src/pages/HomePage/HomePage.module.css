@@ -1,47 +1,45 @@
-/* Overall grid layout for game cards */
 .gameGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
   padding: 20px;
   margin: auto;
+  align-items: stretch;
 }
 
-/* Individual game card styling */
 .gameCard {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   background-color: #fff;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   height: 100%;
+  justify-content: space-between;
 }
 
-/* Styling for game images */
 .gameImage {
   width: 100%;
-  height: auto;
-  object-fit: cover; /* Ensures images cover the area well */
+  height: 200px;
+  object-fit: cover;
 }
 
-/* Information section within each game card */
 .gameInfo {
   padding: 10px;
   text-align: center;
-  flex-grow: 1; /* Allows content to fill the space, pushing buttons to the bottom */
+  flex-grow: 1;
 }
 
-/* Container for buttons to ensure they are placed at the bottom */
 .buttonContainer {
   display: flex;
   justify-content: space-around;
   padding: 10px 0;
 }
 
-/* Styling for individual buttons */
 .button {
+  flex-grow: 1;
+  margin: 0 5px;
   background-color: #007bff;
   color: white;
   border: none;
@@ -49,14 +47,13 @@
   margin-top: 10px;
   border-radius: 5px;
   cursor: pointer;
-  width: 48%; /* Makes buttons take up half the width of the card */
+  width: 48%;
 }
 
 .button:hover {
   background-color: #0056b3;
 }
 
-/* Header styling */
 .header {
   display: flex;
   flex-direction: column;
@@ -67,7 +64,6 @@
   color: white;
 }
 
-/* Search input styling */
 .input {
   width: 50%;
   padding: 8px 16px;
@@ -76,7 +72,6 @@
   border-radius: 4px;
 }
 
-/* Responsive adjustments for different screen sizes */
 @media (min-width: 1200px) {
   .gameGrid {
     grid-template-columns: repeat(4, 1fr);

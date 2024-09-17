@@ -7,7 +7,6 @@ export function rawGIdx() {
 }
 
 export function search(query) {
-console.log(query);
   return sendRequest(`${BASE_URL}/search/?search=${query}`, 'GET');
 }
 
