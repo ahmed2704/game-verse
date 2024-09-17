@@ -4,8 +4,7 @@ import { getUser } from '../../services/authService';
 import './App.css';
 import NavBar from '../../components/NavBar/NavBar';
 import HomePage from '../HomePage/HomePage';
-import GameListPage from '../GameListPage/GameListPage';
-import NewPostPage from '../NewPostPage/NewPostPage';
+import GameDetailsPage from '../GameDetailsPage/GameDetailsPage';
 import SignUpPage from '../SignUpPage/SignUpPage';
 import LogInPage from '../LogInPage/LogInPage';
 
@@ -19,8 +18,7 @@ function App() {
         {user ? (
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/games" element={<GameListPage />} />
-            <Route path="/posts/new" element={<NewPostPage />} />
+            <Route path="/games/rawGShow/:id" element={<GameDetailsPage />} />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         ) : (

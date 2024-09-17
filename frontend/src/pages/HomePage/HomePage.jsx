@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './HomePage.module.css';
 import * as gameService from '../../services/gameService'; 
 import Search from '../../components/SearchBar/SearchBar';
+import { NavLink } from 'react-router-dom';
 
 const HomePage = () => {
   const [games, setGames] = useState([]);
@@ -45,7 +46,9 @@ const HomePage = () => {
               <h2>{game.name}</h2>
               <p>Rating: {game.rating}</p>
               <button className={styles.button}>Like</button>
-              <button className={styles.button}>Details</button>
+              <NavLink to={`/games/rawGShow/${game.id}`}>
+                <button className={styles.button}>Details</button>
+              </NavLink>
             </div>
           </div>
         ))}

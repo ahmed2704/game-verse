@@ -12,33 +12,46 @@ module.exports = {
 // CREATE REVIEW
 async function createReview(req, res) {
   try {
-    let game = await Game.findOne({'rawgId': req.params.id});
+    if (!req.user) {
+      return res.status(401).json({ error: "User not authenticated" });
+    }
+
+    let game = await Game.findOne({ rawgId: req.params.id });
 
     if (!game) {
-      const rawgResponse = await axios.get(`${baseURL}/games/${req.params.id}?key=${API_KEY}`);
-      
+      const rawgResponse = await axios.get(
+        `${baseURL}/games/${req.params.id}?key=${API_KEY}`
+      );
+
       if (!rawgResponse.data) {
         return res.status(404).json({ error: "Game not found on RAWG API" });
       }
+
       game = new Game({
         rawgId: rawgResponse.data.id,
         name: rawgResponse.data.name,
-        genre: rawgResponse.data.genres.map(g => g.name),
-        platforms: rawgResponse.data.platforms.map(p => p.platform.name),
+        genre: rawgResponse.data.genres.map((g) => g.name),
+        platforms: rawgResponse.data.platforms.map((p) => p.platform.name),
         description: rawgResponse.data.description,
         image: rawgResponse.data.background_image,
-        likesCount: 0,
+        likes: [],
         reviews: [],
       });
 
       await game.save();
     }
-    req.body.user = req.user._id; 
-    req.body.game = game._id;
-    game.reviews.push(req.body);
 
+    const review = {
+      user: req.user._id,
+      game: game._id,
+      content: req.body.text,
+      rating: req.body.rating,
+    };
+
+    game.reviews.push(review);
     await game.save();
-    res.status(201).json(game);
+
+    res.status(201).json(review);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Internal server error" });
@@ -49,7 +62,7 @@ async function createReview(req, res) {
 async function updateReview(req, res) {
   try {
     const game = await Game.findById(req.params.gameId);
-    const review = game.reviews.id(req.params.reviewId); 
+    const review = game.reviews.id(req.params.reviewId);
 
     if (!review) {
       return res.status(404).json({ message: "Review not found" });
@@ -62,7 +75,7 @@ async function updateReview(req, res) {
     review.content = req.body.content || review.content;
     review.rating = req.body.rating || review.rating;
 
-    await game.save(); 
+    await game.save();
 
     res.status(200).json(game);
   } catch (err) {
@@ -72,8 +85,8 @@ async function updateReview(req, res) {
 
 async function deleteReview(req, res) {
   try {
-    const game = await Game.findById(req.params.gameId); 
-    const review = game.reviews.id(req.params.reviewId); 
+    const game = await Game.findById(req.params.gameId);
+    const review = game.reviews.id(req.params.reviewId);
     console.log(review);
 
     if (!review) {
