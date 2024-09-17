@@ -6,12 +6,12 @@ import styles from './GameDetailsPage.module.css';
 import LogRocket from 'logrocket';
 LogRocket.init('ooaxuu/game-verse');
 
-const GameDetailsPage = () => {
+const GameDetailsPage = ( {user} ) => {
   const { id } = useParams();
   const [gameDetails, setGameDetails] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [reviewText, setReviewText] = useState('');
-  const [currentUser, setCurrentUser] = useState(getUser()); 
+
 
   useEffect(() => {
     fetchGameDetails();
@@ -53,7 +53,7 @@ const GameDetailsPage = () => {
         reviews.map((review, index) => (
           <div key={index} className={styles.review}>
             <p>{review.content}</p>
-            {currentUser && review.user === currentUser._id && ( 
+            {review.user._id === user._id && (
               <div>
                 <button onClick={() => handleEditReview(review)}>Edit</button>
                 <button onClick={() => handleDeleteReview(review._id)}>Delete</button>

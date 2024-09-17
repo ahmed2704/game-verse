@@ -18,7 +18,7 @@ function App() {
         {user ? (
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/games/rawGShow/:id" element={<GameDetailsPage />} />
+            <Route path="/games/rawGShow/:id" element={<GameDetailsPage user={user} />} />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         ) : (
