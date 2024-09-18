@@ -16,8 +16,6 @@ export default function NavBar({ user, setUser }) {
         <>
           <Link to="/games">Like List</Link>
           &nbsp; | &nbsp;
-          <Link to="/posts/new">New Post</Link>
-          &nbsp; | &nbsp;
           <Link to="" onClick={handleLogOut}>
             Log Out
           </Link>

@@ -11,6 +11,7 @@ module.exports = {
 
 // CREATE REVIEW
 async function createReview(req, res) {
+  console.log(req.user ,"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
   try {
     if (!req.user) {
       return res.status(401).json({ error: "User not authenticated" });
@@ -22,7 +23,7 @@ async function createReview(req, res) {
       const rawgResponse = await axios.get(
         `${baseURL}/games/${req.params.id}?key=${API_KEY}`
       );
-
+      console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", rawgResponse.data);
       if (!rawgResponse.data) {
         return res.status(404).json({ error: "Game not found on RAWG API" });
       }
@@ -44,7 +45,7 @@ async function createReview(req, res) {
     const review = {
       user: req.user._id,
       game: game._id,
-      content: req.body.text,
+      content: req.body.content,
       rating: req.body.rating,
     };
 
@@ -61,14 +62,14 @@ async function createReview(req, res) {
 // UPDATE REVIEW
 async function updateReview(req, res) {
   try {
-    const game = await Game.findById(req.params.gameId);
+    const game = await Game.findById(req.params.gameId).populate('reviews.user');
     const review = game.reviews.id(req.params.reviewId);
 
     if (!review) {
       return res.status(404).json({ message: "Review not found" });
     }
 
-    if (review.user.toString() !== req.user._id.toString()) {
+    if (review.user._id.toString() !== req.user._id.toString()) {
       return res.status(403).json({ message: "Unauthorized" });
     }
 

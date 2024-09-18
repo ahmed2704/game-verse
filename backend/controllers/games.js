@@ -25,22 +25,30 @@ async function rawGIdx(req, res) {
 //SHOW GAME FROM RAWG
 async function rawGShow(req, res) {
   try {
-    const game = await fetch(`${baseURL}/games/${req.params.id}?key=${API_KEY}`);
-    const gameJson = await game.json();
-    const dbGame = await Game.findOne({ rawgId: req.params.id }).populate('reviews.user');
-    if (dbGame) {
-      return res.status(200).json({
-        rawgData: gameJson,
-        reviews: dbGame.reviews 
+    let game = await Game.findOne({ rawgId: req.params.id }).populate('reviews.user');
+
+    if (!game) {
+      const rawgResponse = await fetch(`${baseURL}/games/${req.params.id}?key=${API_KEY}`);
+      const gameJson = await rawgResponse.json();
+
+      game = new Game({
+        rawgId: gameJson.id,
+        name: gameJson.name,
+        genre: gameJson.genres.map(g => g.name),
+        platforms: gameJson.platforms.map(p => p.platform.name),
+        description: gameJson.description,
+        image: gameJson.background_image,
+        reviews: []
       });
-    } else {
-      return res.status(200).json({ rawgData: gameJson });
+
+      await game.save();
     }
+
+    res.status(200).json({ game, reviews: game.reviews });
   } catch (err) {
     res.status(500).json(err);
-    console.log(err);
   }
-};
+}
 
 //SEARCH games from RAWG
 async function search(req, res) {
