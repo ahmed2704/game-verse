@@ -1,0 +1,100 @@
+.gameGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  margin: auto;
+  align-items: stretch;
+}
+
+.gameCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.gameImage {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.gameInfo {
+  padding: 10px;
+  text-align: center;
+  flex-grow: 1;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+}
+
+.button {
+  flex-grow: 1;
+  margin: 0 5px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  margin-top: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 48%;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #282c34;
+  color: white;
+}
+
+.input {
+  width: 50%;
+  padding: 8px 16px;
+  margin-top: 10px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+}
+
+@media (min-width: 1200px) {
+  .gameGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .gameGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 991px) {
+  .gameGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .gameGrid {
+    grid-template-columns: 1fr;
+  }
+  .input {
+    width: 80%;
+  }
+}

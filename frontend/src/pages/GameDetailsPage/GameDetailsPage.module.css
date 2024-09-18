@@ -1,30 +1,50 @@
+.gameDetails {
+  background-color: #1e1e1e; 
+  color: #ccc; 
+  font-family: 'Arial', sans-serif; 
+}
+
+img {
+  width: 100%;
+  border-radius: 8px; 
+  margin-top: 20px; 
+}
+
 .review {
-  border: 1px solid #ccc;
-  padding: 10px;
+  background-color: #2a2a2a;
+  border: none;
+  padding: 15px;
   margin: 10px 0;
-  border-radius: 5px;
+  border-radius: 8px; 
+  color: #e0e0e0;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
 }
 
 form {
   margin-top: 20px;
+  background-color: #333;
+  padding: 20px;
+  border-radius: 8px; 
 }
 
 textarea {
   width: 100%;
-  height: 100px;
+  height: 120px; 
   border-radius: 5px;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #555; 
+  background-color: #262626; 
+  color: #ddd; 
 }
 
 button {
-  margin-top: 10px;
-  padding: 10px 15px;
-  background-color: #007bff;
+  padding: 10px 20px;
+  background-color: #007bff; 
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s; 
 }
 
 button:hover {
@@ -33,4 +53,14 @@ button:hover {
 
 p {
   text-align: center;
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+
+  img {
+    border-radius: 5px; 
+  }
 }

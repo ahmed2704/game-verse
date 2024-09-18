@@ -25,7 +25,7 @@ const HomePage = () => {
 
   const handleLike = async (gameId) => {
     try {
-      const updatedGame = await gameService.getLikedGames(gameId);
+      const updatedGame = await gameService.toggleLike(gameId);
       setGames(games.map(game => game._id === gameId ? updatedGame : game));
     } catch (error) {
       console.error('Error toggling like:', error);

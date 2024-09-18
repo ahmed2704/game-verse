@@ -27,7 +27,7 @@ export function deleteReview(gameId, reviewId) {
 }
 
 export function getLikedGames() {
-  return sendRequest(`${BASE_URL}/liked`, 'GET');
+  return sendRequest(`${BASE_URL}/like`, 'GET');
 }
 
 export function toggleLike(gameId) {

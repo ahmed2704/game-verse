@@ -11,7 +11,6 @@ module.exports = {
 
 // CREATE REVIEW
 async function createReview(req, res) {
-  console.log(req.user ,"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
   try {
     if (!req.user) {
       return res.status(401).json({ error: "User not authenticated" });
@@ -23,7 +22,6 @@ async function createReview(req, res) {
       const rawgResponse = await axios.get(
         `${baseURL}/games/${req.params.id}?key=${API_KEY}`
       );
-      console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", rawgResponse.data);
       if (!rawgResponse.data) {
         return res.status(404).json({ error: "Game not found on RAWG API" });
       }
@@ -88,8 +86,6 @@ async function deleteReview(req, res) {
   try {
     const game = await Game.findById(req.params.gameId);
     const review = game.reviews.id(req.params.reviewId);
-    console.log(review);
-
     if (!review) {
       return res.status(404).json({ message: "Review not found" });
     }

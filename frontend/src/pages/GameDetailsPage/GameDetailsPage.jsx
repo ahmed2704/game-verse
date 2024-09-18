@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import * as gameService from "../../services/gameService";
 import styles from "./GameDetailsPage.module.css";
 import LogRocket from "logrocket";
-
+import { set } from "mongoose";
 
 const GameDetailsPage = ({ user }) => {
   const { id } = useParams();
@@ -19,16 +19,9 @@ const GameDetailsPage = ({ user }) => {
   const fetchGameDetails = async () => {
     console.log(user, "user");
     try {
-      const data = await gameService.rawGShow(id);
-      if (data.game) {
-        setGameDetails(data.game);
-        setReviews(data.reviews || []);
-      } else {
-        const rawgGame = await gameService.fetchFromRawg(id);
-        const savedGame = await gameService.createGameInDB(rawgGame);
-        setGameDetails(savedGame);
-        setReviews(savedGame.reviews || []);
-      }
+      const game = await gameService.rawGShow(id);
+      setGameDetails(game);
+      setReviews(game.reviews);
     } catch (error) {
       console.error("Error fetching game details:", error);
     }
@@ -40,16 +33,22 @@ const GameDetailsPage = ({ user }) => {
 
     try {
       if (editingReviewId) {
-        const updatedGame = await gameService.updateReview(gameDetails._id, editingReviewId, { content: reviewText });
+        const updatedGame = await gameService.updateReview(
+          gameDetails._id,
+          editingReviewId,
+          { content: reviewText }
+        );
         setReviews(updatedGame.reviews);
         setEditingReviewId(null);
       } else {
-        const newReview = await gameService.createReview(id, { content: reviewText });
+        const newReview = await gameService.createReview(id, {
+          content: reviewText,
+        });
         setReviews([...reviews, newReview]);
       }
-      setReviewText('');
+      setReviewText("");
     } catch (error) {
-      console.error('Error submitting review:', error);
+      console.error("Error submitting review:", error);
     }
   };
 
@@ -72,7 +71,7 @@ const GameDetailsPage = ({ user }) => {
 
   if (!gameDetails) return <div>Loading...</div>;
   return (
-    <div>
+    <div className="gameDetails">
       <h1>{gameDetails.name}</h1>
       <img
         src={gameDetails.image}

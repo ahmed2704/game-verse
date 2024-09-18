@@ -3,8 +3,20 @@
   justify-content: space-around;
   align-items: center;
   padding: 2vmin;
+  background-color: #3f4550; /* Explicit background to avoid inheritance */
+  color: white; /* Ensuring text color is white */
 }
 
 .NavBar span {
-  color: rgb(108, 9, 87);
+  color: rgb(255, 121, 226); /* Keeping specific colors */
+}
+
+Link {
+  color: white; /* Ensuring text color is white */
+  text-decoration: none; /* Removing underline from links */
+}
+
+.NavBar a {
+  color: white; /* Ensuring text color is white */
+  text-decoration: none; /* Removing underline from links */
 }

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import * as gameService from '../../services/gameService'; 
-import styles from './LikedListPage.module.css';
+import styles from './LikeListPage.module.css';
 
 
 import { NavLink } from 'react-router-dom';
 
-const LikedGamesPage = () => {
+const LikeListPage = () => {
   const [likedGames, setLikedGames] = useState([]);
 
   useEffect(() => {
@@ -34,6 +34,7 @@ const LikedGamesPage = () => {
                 <NavLink to={`/games/rawGShow/${game.rawgId}`}>
                   <button className={styles.button}>Details</button>
                 </NavLink>
+                  <button>Remove Like</button>
               </div>
             </div>
           ))
@@ -45,4 +46,4 @@ const LikedGamesPage = () => {
   );
 };
 
-export default LikedGamesPage;
+export default LikeListPage;

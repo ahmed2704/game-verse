@@ -53,10 +53,10 @@ a {
   color: #1a1a1a;
 }
 
-a:hover {
+/* a:hover {
   background-color: #1a1a1a;
   color: whitesmoke;
-}
+} */
 
 form {
   display: grid;
