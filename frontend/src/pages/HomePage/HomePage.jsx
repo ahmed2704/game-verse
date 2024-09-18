@@ -23,6 +23,15 @@ const HomePage = () => {
     }
   };
 
+  const handleLike = async (gameId) => {
+    try {
+      const updatedGame = await gameService.getLikedGames(gameId);
+      setGames(games.map(game => game._id === gameId ? updatedGame : game));
+    } catch (error) {
+      console.error('Error toggling like:', error);
+    }
+  };
+
   useEffect(() => {
     fetchAllGames();
   }, []);
@@ -45,7 +54,7 @@ const HomePage = () => {
             <div className={styles.gameInfo}>
               <h2>{game.name}</h2>
               <p>Rating: {game.rating}</p>
-              <button className={styles.button}>Like</button>
+              <button className={styles.button} onClick={() => handleLike(game.id)}>Like</button>
               <NavLink to={`/games/rawGShow/${game.id}`}>
                 <button className={styles.button}>Details</button>
               </NavLink>

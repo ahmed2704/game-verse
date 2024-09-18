@@ -7,6 +7,7 @@ import HomePage from '../HomePage/HomePage';
 import GameDetailsPage from '../GameDetailsPage/GameDetailsPage';
 import SignUpPage from '../SignUpPage/SignUpPage';
 import LogInPage from '../LogInPage/LogInPage';
+import LikedListPage from '../LikeListPage/LikeListPage';
 
 function App() {
   const [user, setUser] = useState(getUser());
@@ -19,6 +20,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/games/rawGShow/:id" element={<GameDetailsPage user={user} />} />
+            <Route path="/like" element={<LikedListPage />} />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         ) : (

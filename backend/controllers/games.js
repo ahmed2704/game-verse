@@ -6,8 +6,9 @@ module.exports = {
   // index,
   rawGIdx,
   rawGShow,
-  showLikedGames,
+  getLikedGames,
   search,
+  toggleLike
 };
 
 //INDEX GAMES FROM RAWG
@@ -64,15 +65,36 @@ async function search(req, res) {
 }
 
 //INDEX GAMES FROM MY DATABASE
-async function showLikedGames(req, res) {
+async function getLikedGames(req, res) {
   try {
-    const user = await User.findById(req.user._id).populate('likes');
-    if (!user || !user.likes.length) {
-      return res.status(404).json({ message: 'No liked games found.' });
-    }
-    res.status(200).json(user.likes);
+    const games = await Game.find({ likes: req.user._id }); 
+    res.status(200).json(games);
   } catch (err) {
-    res.status(500).json({ error: 'Server error', details: err });
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}
+
+async function toggleLike(req, res) {
+  try {
+    const game = await Game.findById(req.params.id);
+    if (!game) {
+      return res.status(404).json({ message: 'Game not found' });
+    }
+
+    const userId = req.user._id;  
+    const index = game.likes.indexOf(userId);
+
+    if (index > -1) {
+      game.likes.splice(index, 1); 
+    } else {
+      game.likes.push(userId);
+    }
+
+    await game.save();
+    res.status(200).json(game);
+  } catch (error) {
+    console.error('Error in toggleLike:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 }
 

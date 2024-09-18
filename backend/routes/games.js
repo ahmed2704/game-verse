@@ -19,8 +19,11 @@ router.get('/rawGShow/:id', gameCtrl.rawGShow);
 // GET /api/games/search
 router.get('/search', gameCtrl.search);
 
-// GET /api/games/liked
-router.get('/liked', gameCtrl.showLikedGames);
+// GET /api/games/liked - Get games the user has liked
+router.get('/liked', gameCtrl.getLikedGames);
+
+// PUT /api/games/:id/toggleLike
+router.put('/:id/toggleLike', gameCtrl.toggleLike);
 
 // POST /api/games/:id/reviews
 router.post('/:id/reviews', reviewCtrl.createReview);
