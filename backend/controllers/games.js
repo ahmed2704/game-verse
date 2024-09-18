@@ -1,4 +1,5 @@
 const { get } = require("mongoose");
+const mongoose = require("mongoose");
 const Game = require("../models/game");
 const baseURL = "https://api.rawg.io/api";
 const API_KEY = process.env.RAWG_KEY;
