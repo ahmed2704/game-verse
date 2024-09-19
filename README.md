@@ -13,6 +13,18 @@ You can access the deployed application here: [GameVerse on Heroku](https://game
 - View and manage your list of liked games
 - Add, edit, and delete reviews on games
 
+## Credits
+
+### Game Data
+All game data, including images, descriptions, and other game-related information, is provided by [RAWG.io](https://rawg.io/). RAWG is a video game database and game discovery service that offers an extensive API for accessing game details.
+
+### Acknowledgments
+- **RAWG.io**: For providing an extensive and easily accessible API that allows developers to fetch detailed information about a vast array of video games.
+
+- **Jan**: for showing me rawG and providing the search bar and bug fixes
+
+- **THE CAVE**: for ...
+
 ## Screenshots
 
 ### Home Page
