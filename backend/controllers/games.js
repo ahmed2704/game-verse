@@ -15,7 +15,6 @@ module.exports = {
 
 //INDEX GAMES FROM RAWG
 async function rawGIdx(req, res) {
-  console.log("rawGIdx");
   try {
     const games = await fetch(`${baseURL}/games?key=${API_KEY}`);
     const gamesJson = await games.json();
@@ -93,8 +92,8 @@ async function getOrCreateGame(rawgId) {
     game = new Game({
       rawgId: gameJson.id,
       name: gameJson.name,
-      genre: gameJson.genres,
-      platforms: gameJson.platforms,
+      genre: gameJson.genres.map(g => g.name),
+      platforms: gameJson.platforms.map(p => p.platform.name),
       description: gameJson.description,
       image: gameJson.background_image,
       reviews: [],
