@@ -22,7 +22,7 @@ const LikeListPage = () => {
 
   const handleRemoveLike = async (gameId) => {
     try {
-      await gameService.toggleLike(gameId);
+      const updatedGame = await gameService.toggleLike(gameId);
       const updatedGames = likedGames.filter((game) => game._id !== gameId);
       setLikedGames(updatedGames);
     } catch (error) {
