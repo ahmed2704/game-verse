@@ -22,8 +22,8 @@ const LikeListPage = () => {
 
   const handleRemoveLike = async (gameId) => {
     try {
-      const updatedGame = await gameService.toggleLike(gameId);
-      const updatedGames = likedGames.filter((game) => game._id !== gameId);
+      await gameService.toggleLike(gameId);
+      const updatedGames = likedGames.filter((game) => game.rawgId !== gameId);
       setLikedGames(updatedGames);
     } catch (error) {
       console.error("Error removing like:", error);
@@ -48,7 +48,7 @@ const LikeListPage = () => {
                   <button className={styles.button}>Details</button>
                 </NavLink>
                 <button
-                  onClick={() => handleRemoveLike(game._id)}
+                  onClick={() => handleRemoveLike(game.rawgId)}
                   className={styles.button}
                 >
                   Remove Like

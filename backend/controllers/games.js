@@ -5,7 +5,6 @@ const baseURL = "https://api.rawg.io/api";
 const API_KEY = process.env.RAWG_KEY;
 
 module.exports = {
-  // index,
   rawGIdx,
   rawGShow,
   getLikedGames,
@@ -39,8 +38,6 @@ async function rawGShow(req, res) {
 
 //SEARCH games from RAWG
 async function search(req, res) {
-  console.log(req.query.search);
-  console.log(req.body);
   try {
     const games = await fetch(
       `${baseURL}/games?key=${API_KEY}&search=${req.query.search}`
@@ -62,6 +59,7 @@ async function getLikedGames(req, res) {
   }
 }
 
+//TOGGLE LIKE
 async function toggleLike(req, res) {
   try {
     
@@ -95,8 +93,8 @@ async function getOrCreateGame(rawgId) {
     game = new Game({
       rawgId: gameJson.id,
       name: gameJson.name,
-      genre: gameJson.genres.map((g) => g.name),
-      platforms: gameJson.platforms.map((p) => p.platform.name),
+      genre: gameJson.genres,
+      platforms: gameJson.platforms,
       description: gameJson.description,
       image: gameJson.background_image,
       reviews: [],
@@ -106,14 +104,3 @@ async function getOrCreateGame(rawgId) {
   }
   return game;
 }
-
-// INDEX games in my database
-// async function index(req, res) {
-//   try {
-//     const games = await Game.find({})
-//     .populate('reviews');
-//     res.status(200).json(games);
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// };

@@ -44,6 +44,7 @@ const GameDetailsPage = ({ user }) => {
         const newReview = await gameService.createReview(id, {
           content: reviewText,
         });
+        newReview.user = user;
         setReviews([...reviews, newReview]);
       }
       setReviewText("");

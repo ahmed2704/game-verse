@@ -3,11 +3,6 @@ const router = express.Router();
 const gameCtrl = require('../controllers/games');
 const reviewCtrl = require('../controllers/reviews');
 
-// // Send the API key from the backend
-// router.get('/apikey', (req, res) => {
-//   res.json({ apiKey: process.env.RAWG_KEY });
-// });
-
 // All paths start with '/api/games'
 
 // GET /api/games/rawGIdx

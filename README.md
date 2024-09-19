@@ -3,6 +3,8 @@
 ## Overview
 **GameVerse** is a web application that allows users to explore a wide variety of games, view detailed information about each game, and interact with the platform by liking games and adding them to their personal liked list. Users can also write reviews on specific games and manage their liked games list. The application is built using the MERN stack (MongoDB, Express, React, Node.js) and integrates with the RAWG.io API to fetch game data.
 
+You can access the deployed application here: [GameVerse on Heroku](https://game--verse-e51913efbf43.herokuapp.com/)
+
 ## Features
 - Browse games from the RAWG.io API
 - View detailed information about each game
@@ -11,6 +13,17 @@
 - View and manage your list of liked games
 - Add, edit, and delete reviews on games
 
+## Screenshots
+
+### Home Page
+![Home Page Screenshot](https://i.imgur.com/DwfvLAI.png)
+
+### Game Details Page
+![Game Details Screenshot](https://i.imgur.com/bk0up7g.png)
+
+### Liked Games List
+![Liked Games Screenshot](https://i.imgur.com/L4eIvHt.png)
+
 ## Technologies Used
 - **Frontend**: React, CSS Modules
 - **Backend**: Node.js, Express
@@ -18,7 +31,6 @@
 - **API Integration**: RAWG.io API for game data
 - **Authentication**: JWT-based authentication
 - **State Management**: React's useState and useEffect hooks
-
 
 ## API Routes
 
@@ -31,31 +43,6 @@
 - **DELETE /api/games/:gameId/reviews/:reviewId** - Delete a review
 - **PUT /api/games/:id/toggleLike** - Like or unlike a game
 - **GET /api/games/liked** - Get all games liked by the user
-
-## User Authentication
-This app uses JSON Web Tokens (JWT) for user authentication. Users need to sign up and log in to interact with the platform (e.g., liking games and adding reviews).
-
-### Sign Up / Log In
-- Users can sign up or log in with their email and password.
-- Authenticated users are issued a JWT, which is stored in local storage for future API requests.
-
-## Liking a Game
-Users can toggle likes for games. When a game is liked, it is added to the user's list of liked games. If the user "unlikes" the game, it is removed from their list.
-
-## Reviews
-Users can write reviews for games they have played. Reviews can be edited or deleted by the user who created them.
-
-## Known Issues / Bugs
-- Ensure proper MongoDB and RAWG.io API integration.
-- Likes are reflected in real-time in the UI after successful toggling.
-
-## Future Enhancements
-- Implement advanced search features (e.g., by genre or platform).
-- Add pagination to improve the game browsing experience.
-- Optimize performance for fetching large amounts of data from RAWG.io.
-
-## License
-This project is licensed under the MIT License. See the LICENSE file for details.
 
 ---
 

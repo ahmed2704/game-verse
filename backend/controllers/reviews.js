@@ -47,10 +47,10 @@ async function createReview(req, res) {
       rating: req.body.rating,
     };
 
-    game.reviews.push(review);
+    const newReview = game.reviews.create(review);
+    game.reviews.push(newReview);
     await game.save();
-
-    res.status(201).json(review);
+    res.status(201).json(newReview);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Internal server error" });
